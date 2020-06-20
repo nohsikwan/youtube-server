@@ -21,8 +21,9 @@ import "./models/Comment";
 import "./models/Video";
 import "./models/User";
 /////////////////
-//mongoDB 가 연결이 안뜰 때 밑에 명령어 입력
-// $sudo service mongod start
+//mongoDB 가 연결이 안뜰 때 밑에 명령어 입력 =>
+//$ sudo service mongod start
+
 //mongod or mongo
 //help
 //use we-tube

@@ -11,23 +11,55 @@ export const videoHomeController = async (req, res) => {
     console.log("Invoked Error in videoHomeController ", error);
   }
 };
+//유저들이 업로드한 비디오을 보내주는 API/////
+export const UsersVideoController = async (req, res) => {
+  isAuthenticated(req);
+  try {
+    const videos = await Video.find({});
+
+    res.status(200).send(videos);
+  } catch (error) {
+    console.log("Invoked Error in UsersVideoController ", error);
+  }
+};
 ///내가 업로드한 비디오중 search api///
-export const videoSearchController = async (req, res) => {
+export const myVideoSearchController = async (req, res) => {
   isAuthenticated(req);
   try {
     const {
       body: { searchItem },
     } = req;
-
     const searchFindItems = await Video.find({
       title: {
         $regex: searchItem,
-        options: "i",
+        $options: "i",
       },
+      email: req.user.email,
     });
+
     res.send(searchFindItems);
   } catch (error) {
     console.log("Invoked Error in videoSearchController", error);
+  }
+};
+
+///모든 업로드한 비디오중 search api///
+export const allVideoSearchController = async (req, res) => {
+  isAuthenticated(req);
+  try {
+    const {
+      body: { searchItem },
+    } = req;
+    const searchFindItems = await Video.find({
+      title: {
+        $regex: searchItem,
+        $options: "i",
+      },
+    });
+
+    res.send(searchFindItems);
+  } catch (error) {
+    console.log("Invoked Error in allVideoSearchController", error);
   }
 };
 
